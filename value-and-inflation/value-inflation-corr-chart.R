@@ -1,4 +1,5 @@
 #!/usr/bin/env Rscript
+# setwd("/Users/dtran24/dataDev/euclidean-studies/value-and-inflation")
 
 # Load libraries
 library(ggplot2)
