@@ -98,10 +98,10 @@ pdf("value-cpi-decade-chart.pdf")
 
 p <- ggplot(df.decade,aes(x=cpi,y=hilo))
 p <- p + geom_point(color="#DD592D",size=3)
-p <- p + geom_text(data=subset(df.decade,year<195.5),
+p <- p + geom_text(data=subset(df.decade, (year<195.5 | year==197) & year!=193),
                    aes(label=paste(year,"0s",sep=""),
                        vjust=-.8,hjust=0.8),size=4,color='#617994')
-p <- p + geom_text(data=subset(df.decade,year>195.5),
+p <- p + geom_text(data=subset(df.decade, (year>195.5 | year==193) & year!=197),
                    aes(label=paste(year,"0s",sep=""),vjust=-.8,hjust=0.1),
                    size=4,color='#617994')
 p <- p + scale_x_continuous("Annual Change in CPI",

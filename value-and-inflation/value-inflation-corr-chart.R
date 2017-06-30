@@ -137,6 +137,7 @@ p <- p + theme_bw()
 p <- p + theme(legend.position="none",
                panel.border=element_blank() )+ggtitle("\n\n\n\n")
 p <- p + ggtitle("Correlation Between CPI and Value Performance \n for Increasing Time Horizons\n")
+p <- p + theme(plot.title = element_text(hjust=0.5))
 
 p
 

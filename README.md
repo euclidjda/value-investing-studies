@@ -12,6 +12,6 @@ With the dates updated to 2017-04-01
 
 Value and Long Term Interest Rates
 
-![alt text](/value-and-inflation/value-IR-decade-plot.png)
+![alt text](/value-and-interest-rates/value-IR-decade-plot.png)
 
-![alt text](/value-and-inflation/corr-value-ir-plot.png)
+![alt text](/value-and-interest-rates/corr-value-ir-plot.png)
