@@ -53,11 +53,9 @@ french.data   <- read.csv(unzip(temp.file,files=as.character(file.list[1,1])),
                           header=TRUE )
 names(french.data)[[1]] <- "DATE"
 
-
 # You can change the ending date of the analysis by changing these variables
 # Beware, however, that the source datafile may only be updated annually
 # and therefore the most recent monthly may not be available
-
 end.year     <- 2017 # Change these to bring up-to-date
 end.month    <- 4
 
@@ -78,9 +76,7 @@ for (i in 2:ncol(french.data)) french.data[,i] <- french.data[,i] / 100
 # Now we calculate the the HML sequence from the factor sequences
 french.data$Hi.Lo <- french.data$HML
 
-# Now create a time series of the HML data that we can pass off to
-# other PerformanceAnalytics functions
-### Converting French's HML data into annualized data ###
+# Converting French's HML data into annualized data #
 ts.data <- data.frame(french.data$Hi.Lo)
 row.names(ts.data) <- date.seq
 
@@ -89,8 +85,6 @@ hi.lo.monthly <- xts(ts.data$french.data.Hi.Lo,date.seq)
 hi.lo.annual  <- aggregate(hi.lo.monthly+1,
                            as.integer(format(index(hi.lo.monthly),"%Y")), prod) - 1
 
-
-### Turn shiller.data into annual data ###
 # Selecting only the dates needed from Shiller data
 shiller.data$Date <- str_replace_all(shiller.data$Date, '[[.]]', '')
 shiller.data$Date <- as.Date(paste(shiller.data$Date, '01', sep=''), '%Y%m%d')
@@ -110,38 +104,60 @@ data.annual <- merge.zoo(ir.annual, hi.lo.annual)
 df.annual <- data.frame(ir=data.annual$ir.annual, hilo=data.annual$hi.lo.annual)
 df.annual$year <- rownames(df.annual)
 
-# Computing the data for the decade
-ir.decade <- aggregate(ir.annual + 1,
-                       as.integer(substr(index(ir.annual), 1, 3)), geomean) - 1
-hi.lo.decade <- aggregate(hi.lo.annual+1,
-                          as.integer(substr(index(hi.lo.annual),1, 3)), geomean) - 1
 
+### Computing the correlations value performance vs. IR for different time periods ###
+result.all <- data.frame(size=c(), values=c())
 
-# Creating data frame to use for graphing
-data.decade <- merge.zoo(ir.decade, hi.lo.decade)
-df.decade <- data.frame(ir=data.decade$ir.decade, hilo=data.decade$hi.lo.decade)
-df.decade$year <- rownames(df.decade)
+for (window.size in 1:10) {
+  num.years <- nrow(df.annual)
+  num.windows <- ceiling(num.years / window.size)
+  
+  samp <- df.annual 
+  samp$period <- gl(num.windows, window.size, length=num.years)
 
-# Creating the pdf canvas to draw graph on
-pdf("value-IR-decade-plot.pdf")
+  result <- aggregate(samp[, c('ir', 'hilo')] + 1, by=list(samp$period), FUN=geomean)
+  result <- result[, c('ir', 'hilo')] - 1
+  result$year <- df.annual[seq(from=1, to=num.years, by=window.size), ]$year
+  
+  new.row <- data.frame(size=c(window.size), value=c(cor(result$ir, result$hilo)))
+  result.all <- rbind(result.all, new.row)
+}
 
-# Creating the graph
-p <- ggplot(df.decade, aes(x=ir, y=hilo))
-p <- p + geom_point(color='#DD592D', size=3)
-p <- p + geom_text(data=subset(df.decade,year<195),
-                   aes(label=paste(year,"0s",sep=""),
-                       vjust=-.8,hjust=0.8),size=4,color='#617994')
-p <- p + geom_text(data=subset(df.decade,year>=195),
-                   aes(label=paste(year,"0s",sep=""),vjust=-.8,hjust=0.1),
-                   size=4,color='#617994')
-p <- p + scale_x_continuous("Annualized Change in Long-Term Interest Rates",
-                            label=percent,
-                            breaks=c(-0.10, -0.08, -0.06, -0.04,-0.02,0,0.02,0.04,0.06,0.08),
-                            limits=c(-0.10, 0.08))
-p <- p + scale_y_continuous("Compound Annualized Value Factor",
-                            label=percent,
-                            breaks=c(-0.04,-0.02,0,0.02,0.04,0.06,0.08,0.10, 0.12, 0.14)) + ggtitle("\n\n\n\n")
-p <- p + ggtitle("The Relationship Between Long-Term Interest Rates \n and Value Investing By Decade")
+result.all
+
+result.all$size <- factor(result.all$size)
+
+# Preparing to graph the correlations 
+background <- data.frame( lower = c(-0.2,0.5,0.8) , 
+                          upper = c(0.5,0.8,1.0) ,
+                          col = letters[1:3]     )
+
+colors = c("#DD592D","#617994","#34BBA7")
+
+# PDF used to plot graph 
+pdf("corr-value-ir-plot.pdf")
+
+# Graph the correlations 
+p <- ggplot(result.all)
+p <- p + geom_rect(data = background ,
+                   mapping = aes(
+                     xmin = 1 ,
+                     xmax = 10 ,
+                     ymin = lower ,
+                     ymax = upper ,
+                     fill = col   ),
+                   alpha = 0.3 )
+p <- p + scale_fill_manual( values=colors )
+p <- p + geom_point(aes(x=size,y=value,color=value),size=6)
+p <- p + geom_smooth(aes(x=size,y=value,group=1),
+                     method="lm",se=FALSE,color="grey",alpha=0.7)
+p <- p + scale_x_discrete("Time Period (Horizon) in Years")
+p <- p + scale_y_continuous("Correlation Between Long-Term Interest Rates & Value Investing Performance\n",
+                            limit=c(-0.2,1.0),breaks=c(-0.2,0.0,0.5,0.8,1.0),expand=c(0,0))
+p <- p + theme_bw()
+p <- p + theme(legend.position="none",
+               panel.border=element_blank() )+ggtitle("\n\n\n\n")
+p <- p + ggtitle("Correlation Between Long-Term Interest Rates and Value Performance \n for Increasing Time Horizons")
 p <- p + theme(plot.title = element_text(hjust=0.5))
 
 p
