@@ -107,18 +107,25 @@ df.annual$year <- rownames(df.annual)
 
 ### Computing the correlations value performance vs. IR for different time periods ###
 result.all <- data.frame(size=c(), values=c())
+window.size <- 5 
+
+num.years <- nrow(df.annual)
+num.windows <- ceiling(num.years / window.size)
+
+samp <- df.annual 
+samp$period <- gl(num.windows, window.size, length=num.years)
 
 for (window.size in 1:10) {
   num.years <- nrow(df.annual)
   num.windows <- ceiling(num.years / window.size)
-  
-  samp <- df.annual 
+
+  samp <- df.annual
   samp$period <- gl(num.windows, window.size, length=num.years)
 
   result <- aggregate(samp[, c('ir', 'hilo')] + 1, by=list(samp$period), FUN=geomean)
   result <- result[, c('ir', 'hilo')] - 1
   result$year <- df.annual[seq(from=1, to=num.years, by=window.size), ]$year
-  
+
   new.row <- data.frame(size=c(window.size), value=c(cor(result$ir, result$hilo)))
   result.all <- rbind(result.all, new.row)
 }
@@ -127,17 +134,17 @@ result.all
 
 result.all$size <- factor(result.all$size)
 
-# Preparing to graph the correlations 
-background <- data.frame( lower = c(-0.2,0.5,0.8) , 
+# Preparing to graph the correlations
+background <- data.frame( lower = c(-0.2,0.5,0.8) ,
                           upper = c(0.5,0.8,1.0) ,
                           col = letters[1:3]     )
 
 colors = c("#DD592D","#617994","#34BBA7")
 
-# PDF used to plot graph 
-pdf("corr-value-ir-plot.pdf")
+# PDF used to plot graph
+# pdf("corr-value-ir-plot.pdf")
 
-# Graph the correlations 
+# Graph the correlations
 p <- ggplot(result.all)
 p <- p + geom_rect(data = background ,
                    mapping = aes(
@@ -160,6 +167,8 @@ p <- p + theme(legend.position="none",
 p <- p + ggtitle("Correlation Between Long-Term Interest Rates and Value Performance \n for Increasing Time Horizons")
 p <- p + theme(plot.title = element_text(hjust=0.5))
 
-p
+# p
 
-dev.off()
+ggplot()
+
+# dev.off()
