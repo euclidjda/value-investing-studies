@@ -5,7 +5,8 @@ Value and Inflation
 
 With the dates updated to 2017-04-01
 
-![test image size](/value-and-inflation/value-cpi-decade-chart.png){:height="50%" width="50%"}
+<img src="/value-and-inflation/value-cpi-decade-chart.png" width=“50”>
+<img src="/value-and-inflation/value-cpi-decade-chart.png" width=“50%”>
 
 ![alt text](/value-and-inflation/value-inflation-corr-chart.png)
 
