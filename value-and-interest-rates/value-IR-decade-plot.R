@@ -122,8 +122,9 @@ data.decade <- merge.zoo(ir.decade, hi.lo.decade)
 df.decade <- data.frame(ir=data.decade$ir.decade, hilo=data.decade$hi.lo.decade)
 df.decade$year <- rownames(df.decade)
 
-# Creating the pdf canvas to draw graph on
-pdf("value-IR-decade-plot.pdf")
+# Creating the png canvas to draw graph on
+png.filename <- "value-IR-decade-plot.png"
+png(png.filename)
 
 # Creating the graph
 p <- ggplot(df.decade, aes(x=ir, y=hilo))
@@ -145,5 +146,8 @@ p <- p + ggtitle("The Relationship Between Long-Term Interest Rates \n and Value
 p <- p + theme(plot.title = element_text(hjust=0.5))
 
 p
+
+# Opening the png file 
+system2('open', args = png.filename, wait = FALSE)
 
 dev.off()

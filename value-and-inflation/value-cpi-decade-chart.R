@@ -94,7 +94,9 @@ data.decade    <- merge.zoo( cpi.decade, hi.lo.decade )
 df.decade      <- data.frame(cpi=data.decade$cpi.decade,hilo=data.decade$hi.lo.decade)
 df.decade$year <- rownames(df.decade)
 
-pdf("value-cpi-decade-chart.pdf")
+# Creating the png canvas to draw graph on
+png.filename <- "value-cpi-decade-chart.png"
+png(png.filename, width=500, height=500)
 
 p <- ggplot(df.decade,aes(x=cpi,y=hilo))
 p <- p + geom_point(color="#DD592D",size=3)
@@ -111,7 +113,11 @@ p <- p + scale_y_continuous("Compound Annualized Value Factor",
                             label=percent,
                             breaks=c(-0.04,-0.02,0,0.02,0.04,0.06,0.08,0.10))+ggtitle("\n\n\n\n")
 p <- p + ggtitle("The Relationship Between Inflation and Value Investing By Decade")
+p <- p + theme(plot.title = element_text(hjust=0.5))
 
 p
+
+# Opening the png file 
+system2('open', args = png.filename, wait = FALSE)
 
 dev.off()

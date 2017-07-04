@@ -115,7 +115,9 @@ background <- data.frame( lower = c(0.0,0.5,0.8) ,
 
 colors = c("#DD592D","#617994","#34BBA7")
 
-pdf("value-inflation-corr-chart.pdf")
+# Creating the png canvas to draw graph on
+png.filename <- "value-inflation-corr-chart.png"
+png(png.filename, width=500, height=500)
 
 p <- ggplot(result.all)
 p <- p + geom_rect(data = background ,
@@ -140,5 +142,9 @@ p <- p + ggtitle("Correlation Between CPI and Value Performance \n for Increasin
 p <- p + theme(plot.title = element_text(hjust=0.5))
 
 p
+
+# Opening the png file 
+system2('open', args = png.filename, wait = FALSE)
+
 
 dev.off()

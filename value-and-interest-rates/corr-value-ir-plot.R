@@ -130,8 +130,6 @@ for (window.size in 1:10) {
   result.all <- rbind(result.all, new.row)
 }
 
-result.all
-
 result.all$size <- factor(result.all$size)
 
 # Preparing to graph the correlations
@@ -141,8 +139,9 @@ background <- data.frame( lower = c(-0.2,0.5,0.8) ,
 
 colors = c("#DD592D","#617994","#34BBA7")
 
-# PDF used to plot graph
-# pdf("corr-value-ir-plot.pdf")
+# Creating the png canvas to draw graph on
+png.filename <- "corr-value-ir-plot.png"
+png(png.filename)
 
 # Graph the correlations
 p <- ggplot(result.all)
@@ -167,8 +166,9 @@ p <- p + theme(legend.position="none",
 p <- p + ggtitle("Correlation Between Long-Term Interest Rates and Value Performance \n for Increasing Time Horizons")
 p <- p + theme(plot.title = element_text(hjust=0.5))
 
-# p
+p
 
-ggplot()
+# Opening the png file 
+system2('open', args = png.filename, wait = FALSE)
 
-# dev.off()
+dev.off()
