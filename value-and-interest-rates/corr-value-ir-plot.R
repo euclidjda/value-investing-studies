@@ -1,5 +1,4 @@
 #!/usr/bin/env Rscript
-# setwd("/Users/dtran24/dataDev/euclidean-studies/value-and-interest-rates")
 
 # Load libraries
 library(ggplot2)
@@ -17,7 +16,7 @@ geomean = function(x, na.rm=TRUE){
 }
 
 
-### For downloading Shiller's interest rate data ###
+# For downloading Shiller's interest rate data #
 
 # The URL for the data
 shiller.data.url <- 'www.econ.yale.edu/~shiller/data/ie_data.xls'
@@ -37,7 +36,7 @@ shiller.data <- shiller.data[, c("Date", "Rate")]
 shiller.data <- head(shiller.data, nrow(shiller.data) - 2) ## Last two rows do not contain relevant data
 # Will need to be further trimmed to align with timeline of French data 
 
-### For downloading French's value performance data ###
+# For downloading French's value performance data #
 
 # The URL for the data
 french.data.url     <- "http://mba.tuck.dartmouth.edu/pages/faculty/ken.french/ftp/F-F_Benchmark_Factors_Monthly.zip"
@@ -56,11 +55,12 @@ names(french.data)[[1]] <- "DATE"
 # You can change the ending date of the analysis by changing these variables
 # Beware, however, that the source datafile may only be updated annually
 # and therefore the most recent monthly may not be available
-end.year     <- 2017 # Change these to bring up-to-date
+end.year     <- 2017 
 end.month    <- 4
 
 
-###  Now we want to remove all the data below the end date ###
+#  Now we want to remove all the data below the end date #
+
 # Transforming French's date data
 start.year     <- as.numeric(substr(french.data$DATE[[1]], 1, 4))
 start.month    <- as.numeric(substr(french.data$DATE[[1]], 5, 6))
@@ -85,7 +85,11 @@ hi.lo.monthly <- xts(ts.data$french.data.Hi.Lo,date.seq)
 hi.lo.annual  <- aggregate(hi.lo.monthly+1,
                            as.integer(format(index(hi.lo.monthly),"%Y")), prod) - 1
 
-# Selecting only the dates needed from Shiller data
+# Turn shiller.data into annualized data #
+
+# Selecting only the dates needed from Shiller data. French.data
+# has less data points than shiller.data so we must choose proper 
+# dates to align the two data sets
 shiller.data$Date <- str_replace_all(shiller.data$Date, '[[.]]', '')
 shiller.data$Date <- as.Date(paste(shiller.data$Date, '01', sep=''), '%Y%m%d')
 start.index <- which(shiller.data$Date == as.Date('1926-07-01'))[1] ## Start date of French's data
@@ -93,8 +97,10 @@ end.index <- which(shiller.data$Date == as.Date('2017-04-01'))[1] ## End date of
 shiller.data <- shiller.data[start.index : end.index, ]
 
 # Computing the annualized interest rate data
+
+# ir = interest rate
 ir.data <- xts(as.numeric(as.character(shiller.data$Rate)), shiller.data$Date) # Type conversion
-ir.monthly <- Return.calculate(ir.data, method="compound") # ir = interest rate
+ir.monthly <- Return.calculate(ir.data, method="compound") 
 ir.monthly <- ir.monthly[2 : nrow(ir.monthly), ]
 ir.annual <- aggregate(ir.monthly + 1,
                        as.integer(format(index(ir.monthly), "%Y")), prod) - 1
@@ -105,15 +111,9 @@ df.annual <- data.frame(ir=data.annual$ir.annual, hilo=data.annual$hi.lo.annual)
 df.annual$year <- rownames(df.annual)
 
 
-### Computing the correlations value performance vs. IR for different time periods ###
+# Computing the correlations value performance 
+# vs. IR for different time periods #
 result.all <- data.frame(size=c(), values=c())
-window.size <- 5 
-
-num.years <- nrow(df.annual)
-num.windows <- ceiling(num.years / window.size)
-
-samp <- df.annual 
-samp$period <- gl(num.windows, window.size, length=num.years)
 
 for (window.size in 1:10) {
   num.years <- nrow(df.annual)
