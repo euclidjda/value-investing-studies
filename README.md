@@ -6,11 +6,12 @@ In this README, we outline two relations through charts: 1) the performance of v
 If you’re interested in reproducing the results on your own computer, there will be instructions on how to do so after the charts.  
 
 # Value and Inflation 
-(charts are inside “value-and-inflation” folder)
+(“value-and-inflation” folder)
 
 value-cpi-decade-chart.png
 
 ![alt text](/value-and-inflation/value-cpi-decade-chart.png)
+
 
 value-inflation-corr-chart.png
 
@@ -18,11 +19,12 @@ value-inflation-corr-chart.png
 
 
 # Value and Long Term Interest Rates
-(charts are inside “value-and-interest-rates” folder)
+(“value-and-interest-rates” folder)
 
 value-IR-decade-plot.png
 
 ![alt text](/value-and-interest-rates/value-IR-decade-plot.png)
+
 
 corr-value-ir-plot.png
 
@@ -44,7 +46,7 @@ to copy our repository “euclidean-studies” into your current directory.
 
 Choose a chart from our README to reproduce. Note that each chart is titled with its filename. Each chart can be found in the folder that is stated under its bolded section header (i.e. “Value and Inflation”). 
 
-To open the chart that you have chosen, navigate into the “euclidean-studies” directory, the directory that holds the chart you desire, and use the command:
+To open the chart that you have chosen, navigate into the “euclidean-studies” directory, navigate into the directory that holds the chart you desire, and use the command:
 
 Rscript name-of-file.R
 
