@@ -14,7 +14,7 @@ The studies in this repo are:
 
 # Installing and Executing the Studies
 
-1) Cloning the Git Repository
+### Cloning the Git Repository
 
 To clone our repository, make sure you’re in a directory on your computer that you want to hold our files. Use the command 
 
@@ -24,7 +24,7 @@ $ git clone https://github.com/euclidjda/value-investing-studies.git
 
 to copy our repository “value-investing-studies” into your current directory. 
 
-2) Executing the Code
+### Executing the Code
 
 Choose a chart from our README to reproduce.
 
