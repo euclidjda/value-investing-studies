@@ -1,15 +1,15 @@
 # Value Investing Studies
 
-This is a collection of data that examines the performance and characteristics of value investing over long periods of time. Each directory is dedicated to a particular form of data analysis pertaining to value investing and the directories are:
+This repo is a collection of data anaysis studies that examines the performance and characteristics of value investing over long periods of time. Each directory is study dedicated to a particular form of data analysis pertaining to value investing. The studies rely publicly available stock market and economic data. The studies are:
 - [Value and Inflation](https://github.com/euclidjda/value-investing-studies/tree/master/value-and-inflation): 
-	- Measures value stock performance with respect to inflation
+	- Characterizes the relationship of value stock performance with respect to inflation as measured by the consumer price index
 - [Value and Interest Rates](https://github.com/euclidjda/value-investing-studies/tree/master/value-and-interest-rates)
-	- Measures value stock performance with respect to interest rates 
+	- Characterizes the relationship of value stock performance with respect to long-term interest rates 
 - [Value is Hard](https://github.com/euclidjda/value-investing-studies/tree/master/value-is-hard)
 - [Value vs. Growth](https://github.com/euclidjda/value-investing-studies/tree/master/value-vs-growth)
 
 
-# Reproducing Our Results
+# Installing and Executing the Studies
 
 1) Cloning the Git Repository
 
@@ -21,8 +21,7 @@ $ git clone https://github.com/euclidjda/value-investing-studies.git
 
 to copy our repository “value-investing-studies” into your current directory. 
 
-
-2) Reproducing our Results
+2) Executing the Code
 
 Choose a chart from our README to reproduce.
 
@@ -46,7 +45,7 @@ After doing so, this chart should pop up:
 
 # Contributors and Acknowledgement
 
-This repository was developed and is maintained by [Euclidean Technologies LLC](http://www.euclidean.com/). Contributors include David Tran and John Alberg. 
+This repository was developed and is maintained by [Euclidean Technologies, LLC](http://www.euclidean.com/). Contributors include David Tran and John Alberg. 
 
 
 # License 
