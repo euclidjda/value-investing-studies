@@ -24,17 +24,33 @@ $ git clone https://github.com/euclidjda/value-investing-studies.git
 
 to copy our repository “value-investing-studies” into your current directory. 
 
+### Installing Necessary R Dependecies 
+
+Some R dependecies are required to run our scripts. Use the command 
+
+```bash 
+$ cd value-investing-studies
+``` 
+
+to navigate into your newly cloned directory. To install the necessary dependencies, use the command 
+
+```bash 
+$ Rscript install_dependecies.R
+``` 
+
+After the script completes, you will have all the R dependecies required to run our scripts. 
+
 ### Executing the Code
 
 Choose a chart from our README to reproduce.
 
-Suppose we want to run the script “value-cpi-decade-chart.R”. To run this script, make sure you’re in the directory that is holding our cloned repository, and use the command: 
+Suppose we want to run the script “value-cpi-decade-chart.R”. To run this script, we find the directory the script is located in (in this case “value-and-inflation”) and use the command: 
 
 ```bash
-$ cd value-investing-studies/value-and-inflation
+$ cd value-and-inflation
 ```
 
-This will place you in the “value-investing-studies” directory that contains all of our files, and then in the “value-and-inflation” directory, which contains the script we want to run. Lastly, to run the script, use the command: 
+to navigate into the directory. Lastly, to run the script, use the command: 
 
 ```bash 
 $ Rscript value-cpi-decade-chart.R
