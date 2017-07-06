@@ -39,7 +39,6 @@ This will place you in the “value-investing-studies” directory that contains
 $ Rscript value-cpi-decade-chart.R
 ```
 
-
 After doing so, this chart should pop up:  
 
 ![alt text](/value-and-inflation/value-cpi-decade-chart.png)
@@ -47,9 +46,7 @@ After doing so, this chart should pop up:
 
 # Contributors and Acknowledgement
 
-This repository was developed and is maintained by [Euclidean Technologies, LLC](http://www.euclidean.com/). Contributors include [David Tran](http://github.com/dtran24) and [John Alberg](http://github.com/euclidjda). 
-
-We would like to thank [Kenneth R. French](http://mba.tuck.dartmouth.edu/pages/faculty/ken.french/) and [Robert Shiller](http://www.econ.yale.edu/~shiller/) for making this data available through their websites [here](http://mba.tuck.dartmouth.edu/pages/faculty/ken.french/data_library.html#Research) and [here](http://www.econ.yale.edu/~shiller/data.htm), respective. 
+This repository was developed and is maintained by [Euclidean Technologies, LLC](http://www.euclidean.com/). Contributors include [David Tran](http://github.com/dtran24) and [John Alberg](http://github.com/euclidjda). We would like to thank [Kenneth R. French](http://mba.tuck.dartmouth.edu/pages/faculty/ken.french/) and [Robert Shiller](http://www.econ.yale.edu/~shiller/) for making this data available through their websites [here](http://mba.tuck.dartmouth.edu/pages/faculty/ken.french/data_library.html#Research) and [here](http://www.econ.yale.edu/~shiller/data.htm), respective. 
 
 # License 
 
