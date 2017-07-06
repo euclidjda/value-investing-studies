@@ -51,9 +51,6 @@ This repository was developed and is maintained by [Euclidean Technologies, LLC]
 
 # License 
 
-This is experimental software and NOT intended for treatment of any
-kind. It is provided under the [MIT license][mit], so you can do with
-it whatever you wish except hold me responsible if it does something
-you don't like.
+This is experimental software. It is provided under the [MIT license][mit], so you can do with it whatever you wish except hold the authors responsible if it does something you don't like.
 
 [mit]: http://www.opensource.org/licenses/mit-license.php
