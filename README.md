@@ -45,7 +45,7 @@ After doing so, this chart should pop up:
 
 # Contributors and Acknowledgement
 
-This repository was developed and is maintained by [Euclidean Technologies, LLC](www.euclidean.com). Contributors include [David Tran](github.com/dtran24) and [John Alberg](github.com/euclidjda). 
+This repository was developed and is maintained by [Euclidean Technologies, LLC](http://www.euclidean.com/). Contributors include [David Tran](http://github.com/dtran24) and [John Alberg](http://github.com/euclidjda). 
 
 
 # License 
