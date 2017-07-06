@@ -45,11 +45,11 @@ After doing so, this chart should pop up:
 ![alt text](/value-and-inflation/value-cpi-decade-chart.png)
 
 
-# Contributors and Acknowledgement
+## Contributors and Acknowledgement
 
 This repository was developed and is maintained by [Euclidean Technologies, LLC](http://www.euclidean.com/). Contributors include [David Tran](http://github.com/dtran24) and [John Alberg](http://github.com/euclidjda). We would like to thank [Kenneth R. French](http://mba.tuck.dartmouth.edu/pages/faculty/ken.french/) and [Robert Shiller](http://www.econ.yale.edu/~shiller/) for making the stock market and economic data used by this repo available through their websites [here](http://mba.tuck.dartmouth.edu/pages/faculty/ken.french/data_library.html#Research) and [here](http://www.econ.yale.edu/~shiller/data.htm), respectively. 
 
-# License 
+## License 
 
 This is experimental software. It is provided under the [MIT license][mit], so you can do with it whatever you wish except hold the authors responsible if it does something you don't like.
 
