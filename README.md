@@ -1,5 +1,5 @@
 # Value Investing Studies
-### By Euclidean Technologies, LLC
+#### [by Euclidean Technologies, LLC](http://www.euclidean.com)
 
 This repo is a collection of data anaysis studies that examines the performance and characteristics of value investing over long periods of time. Each directory is a study dedicated to a particular form of data analysis on value investing. The studies depend only on the code herein and publicly available stock market and economic data. We would like to thank [Kenneth R. French](http://mba.tuck.dartmouth.edu/pages/faculty/ken.french/) and [Robert Shiller](http://www.econ.yale.edu/~shiller/) for making this data available through their websites [here](http://mba.tuck.dartmouth.edu/pages/faculty/ken.french/data_library.html#Research) and [here](http://www.econ.yale.edu/~shiller/data.htm), respective. 
 
