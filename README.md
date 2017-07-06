@@ -3,7 +3,7 @@
 This repo is a collection of data anaysis studies that examines the performance and characteristics of value investing over long periods of time. Each directory is study dedicated to a particular form of data analysis pertaining to value investing. The studies rely publicly available stock market and economic data. The studies are:
 - [Value and Inflation](https://github.com/euclidjda/value-investing-studies/tree/master/value-and-inflation): 
 	- Characterizes the relationship of value stock performance with respect to inflation as measured by the consumer price index
-- [Value and Interest Rates](https://github.com/euclidjda/value-investing-studies/tree/master/value-and-interest-rates)
+- [Value and Interest Rates](https://github.com/euclidjda/value-investing-studies/tree/master/value-and-interest-rates):
 	- Characterizes the relationship of value stock performance with respect to long-term interest rates 
 - [Value is Hard](https://github.com/euclidjda/value-investing-studies/tree/master/value-is-hard)
 - [Value vs. Growth](https://github.com/euclidjda/value-investing-studies/tree/master/value-vs-growth)
@@ -45,7 +45,7 @@ After doing so, this chart should pop up:
 
 # Contributors and Acknowledgement
 
-This repository was developed and is maintained by [Euclidean Technologies, LLC](http://www.euclidean.com/). Contributors include David Tran and John Alberg. 
+This repository was developed and is maintained by [Euclidean Technologies, LLC](www.euclidean.com). Contributors include [David Tran](github.com/dtran24) and [John Alberg](github.com/euclidjda). 
 
 
 # License 
