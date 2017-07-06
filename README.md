@@ -32,7 +32,7 @@ Some R dependecies are required to run our scripts. Use the command
 $ cd value-investing-studies
 ``` 
 
-to navigate into your newly cloned directory. To install the necessary dependencies, use the command 
+to navigate into your newly cloned directory. To install the necessary dependencies, use the command: 
 
 ```bash 
 $ Rscript install_dependecies.R
