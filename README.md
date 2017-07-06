@@ -1,55 +1,59 @@
-# euclidean-studies
-Euclidean Studies
+# Value Investing Studies
 
-In this README, we outline two relations through charts: 1) the performance of value investing with respect to inflation, and 2) the performance of value investing with respect to long-term interest rates. 
-
-If you’re interested in reproducing the results on your own computer, there will be instructions on how to do so after the charts.  
-
-# Value and Inflation 
-(“value-and-inflation” folder)
-
-value-cpi-decade-chart.png
-
-![alt text](/value-and-inflation/value-cpi-decade-chart.png)
+This is a collection of dat that examines the performance and characteristics of value investing over long periods of time. Each directory is dedicated to a particular form of data analysis pertaining to value investing and the directories are:
+- [Value and Inflation](https://github.com/euclidjda/value-investing-studies/tree/master/value-and-inflation): 
+	- Measures value stock performance with respect to inflation
+- [Value and Interest Rates](https://github.com/euclidjda/value-investing-studies/tree/master/value-and-interest-rates)
+	- Measures value stock performance with respect to interest rates 
+- [Value is Hard](https://github.com/euclidjda/value-investing-studies/tree/master/value-is-hard)
+- [Value vs. Growth](https://github.com/euclidjda/value-investing-studies/tree/master/value-vs-growth)
 
 
-value-inflation-corr-chart.png
-
-![alt text](/value-and-inflation/value-inflation-corr-chart.png)
-
-
-# Value and Long Term Interest Rates
-(“value-and-interest-rates” folder)
-
-value-IR-decade-plot.png
-
-![alt text](/value-and-interest-rates/value-IR-decade-plot.png)
-
-
-corr-value-ir-plot.png
-
-![alt text](/value-and-interest-rates/corr-value-ir-plot.png)
-
-
-# Reproducing the Results
+# Reproducing Our Results
 
 1) Cloning the Git Repository
 
 To clone (read: copy) our repository, make sure you’re in a directory on your computer that you want to hold our files. Use the command 
 
-git clone https://github.com/euclidjda/euclidean-studies.git
+```bash
+$ git clone https://github.com/euclidjda/value-investing-studies.git
+```
 
-to copy our repository “euclidean-studies” into your current directory. 
+to copy our repository “value-investing-studies” into your current directory. 
 
 
 2) Reproducing our Results
 
-Choose a chart from our README to reproduce. Note that each chart is titled with its filename. Each chart can be found in the folder that is stated under its bolded section header (i.e. “Value and Inflation”). 
+Choose a chart from our README to reproduce.
 
-To open the chart that you have chosen, navigate into the “euclidean-studies” directory, navigate into the directory that holds the chart you desire, and use the command:
+Suppose we want to run the script “value-cpi-decade-chart.R”. To run this script, make sure you’re in the directory that is holding our cloned repository, and use the command: 
 
-Rscript name-of-file.R
+```bash
+cd value-investing-studies/value-and-inflation
+```
 
-ex: Rscript corr-value-ir-plot.R
+This will place you in the “value-investing-studies” directory that contains all of our files, and then in the “value-and-inflation” directory, which contains the script we want to run. Lastly, to run the script, use the command: 
 
-After doing so, our chart should pop up. 
+```bash 
+Rscript value-cpi-decade-chart.R
+```
+
+
+After doing so, our chart should pop up. Like: 
+
+![alt text](/value-and-inflation/value-cpi-decade-chart.png)
+
+
+# Contributors and Acknowledgement
+
+This repository was developed and is maintained by [Euclidean Technologies LLC](http://www.euclidean.com/). Contributors include David Tran and John Alberg. 
+
+
+# License 
+
+This is experimental software and NOT intended for treatment of any
+kind. It is provided under the [MIT license][mit], so you can do with
+it whatever you wish except hold me responsible if it does something
+you don't like.
+
+[mit]: http://www.opensource.org/licenses/mit-license.php
