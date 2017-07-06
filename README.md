@@ -12,7 +12,7 @@ The studies in this repo are:
 - [Value vs. Growth](https://github.com/euclidjda/value-investing-studies/tree/master/value-vs-growth)
 
 
-# Installing and Executing the Studies
+## Installing and Executing the Studies
 
 ### Cloning the Git Repository
 
