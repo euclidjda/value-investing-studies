@@ -19,7 +19,7 @@ geomean = function(x, na.rm=TRUE){
 # For downloading Shiller's interest rate data #
 
 # The URL for the data
-shiller.data.url <- 'www.econ.yale.edu/~shiller/data/ie_data.xls'
+shiller.data.url <- 'http://www.econ.yale.edu/~shiller/data/ie_data.xls'
 
 # Name of file to store data on local computer 
 shiller.filename <- 'shillerdata.xls'
