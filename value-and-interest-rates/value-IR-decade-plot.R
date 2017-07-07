@@ -19,7 +19,7 @@ geomean = function(x, na.rm=TRUE){
 # For downloading Shiller's interest rate data #
 
 # The URL for the data
-shiller.data.url <- 'www.econ.yale.edu/~shiller/data/ie_data.xls'
+shiller.data.url <- 'http://www.econ.yale.edu/~shiller/data/ie_data.xls'
 
 # Name of file to store data on local computer 
 shiller.filename <- 'shillerdata.xls'
@@ -101,12 +101,13 @@ shiller.data <- shiller.data[start.index : end.index, ]
 
 # Computing the annualized interest rate data
 
-# ir = interest rate
-ir.data <- xts(as.numeric(as.character(shiller.data$Rate)), shiller.data$Date) ## Type conversion
-ir.monthly <- Return.calculate(ir.data, method="compound")
-ir.monthly <- ir.monthly[2 : nrow(ir.monthly), ]
-ir.annual <- aggregate(ir.monthly + 1,
-                       as.integer(format(index(ir.monthly), "%Y")), prod) - 1
+# JDA 7/6/17: Since rates in the Shiller xls rates are already in "return" format,
+# we can map it direclty to a monthly xts
+ir.monthly <- xts(as.numeric(as.character(shiller.data$Rate))/100, shiller.data$Date) ## Type conversion
+
+# Since the monthly numbers are already annualized, we can just take the average/mean
+# rate for the year
+ir.annual <- aggregate(ir.monthly,as.integer(format(index(ir.monthly), "%Y")), mean)
 
 # Create new data frame as zoo object holding both ir and hilo data
 data.annual <- merge.zoo(ir.annual, hi.lo.annual)
@@ -118,7 +119,6 @@ ir.decade <- aggregate(ir.annual + 1,
                        as.integer(substr(index(ir.annual), 1, 3)), geomean) - 1
 hi.lo.decade <- aggregate(hi.lo.annual+1,
                           as.integer(substr(index(hi.lo.annual),1, 3)), geomean) - 1
-
 
 # Creating data frame to use for graphing
 data.decade <- merge.zoo(ir.decade, hi.lo.decade)
@@ -140,8 +140,8 @@ p <- p + geom_text(data=subset(df.decade,year>=195),
                    size=4,color='#617994')
 p <- p + scale_x_continuous("Annualized Change in Long-Term Interest Rates",
                             label=percent,
-                            breaks=c(-0.10, -0.08, -0.06, -0.04,-0.02,0,0.02,0.04,0.06,0.08),
-                            limits=c(-0.10, 0.08))
+                            breaks=c(0,0.02,0.04,0.06,0.08,0.10,0.12),
+                            limits=c(.0, 0.12))
 p <- p + scale_y_continuous("Compound Annualized Value Factor",
                             label=percent,
                             breaks=c(-0.04,-0.02,0,0.02,0.04,0.06,0.08,0.10, 0.12, 0.14)) + ggtitle("\n\n\n\n")

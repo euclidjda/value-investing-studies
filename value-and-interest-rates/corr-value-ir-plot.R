@@ -19,7 +19,7 @@ geomean = function(x, na.rm=TRUE){
 # For downloading Shiller's interest rate data #
 
 # The URL for the data
-shiller.data.url <- 'www.econ.yale.edu/~shiller/data/ie_data.xls'
+shiller.data.url <- 'http://www.econ.yale.edu/~shiller/data/ie_data.xls'
 
 # Name of file to store data on local computer 
 shiller.filename <- 'shillerdata.xls'
@@ -39,7 +39,7 @@ shiller.data <- head(shiller.data, nrow(shiller.data) - 2) ## Last two rows do n
 # For downloading French's value performance data #
 
 # The URL for the data
-french.data.url     <- "http://mba.tuck.dartmouth.edu/pages/faculty/ken.french/ftp/F-F_Benchmark_Factors_Monthly.zip"
+french.data.url <- "http://mba.tuck.dartmouth.edu/pages/faculty/ken.french/ftp/F-F_Benchmark_Factors_Monthly.zip"
 
 # Download the data and unzip it
 temp.file <- tempfile()
@@ -99,11 +99,13 @@ shiller.data <- shiller.data[start.index : end.index, ]
 # Computing the annualized interest rate data
 
 # ir = interest rate
-ir.data <- xts(as.numeric(as.character(shiller.data$Rate)), shiller.data$Date) # Type conversion
-ir.monthly <- Return.calculate(ir.data, method="compound") 
-ir.monthly <- ir.monthly[2 : nrow(ir.monthly), ]
-ir.annual <- aggregate(ir.monthly + 1,
-                       as.integer(format(index(ir.monthly), "%Y")), prod) - 1
+# JDA 7/6/17: Since rates in the Shiller xls rates are already in "return" format,
+# we can map it direclty to a monthly xts
+ir.monthly <- xts(as.numeric(as.character(shiller.data$Rate))/100, shiller.data$Date) ## Type conversion
+
+# Since the monthly numbers are already annualized, we can just take the average/mean
+# rate for the year
+ir.annual <- aggregate(ir.monthly,as.integer(format(index(ir.monthly), "%Y")), mean)
 
 # Create new data frame as zoo object
 data.annual <- merge.zoo(ir.annual, hi.lo.annual)
