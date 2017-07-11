@@ -170,7 +170,7 @@ p <- p + theme(plot.title = element_text(hjust=0.5))
 
 p
 
+dev.off()
+
 # Opening the png file 
 system2('open', args = png.filename, wait = FALSE)
-
-dev.off()

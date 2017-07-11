@@ -8,6 +8,7 @@ library(ggthemes)
 library(PerformanceAnalytics)
 library(RColorBrewer)
 library(plyr)
+library(gdata)
 
 # Define geometric mean
 geomean = function(x, na.rm=TRUE){
@@ -65,21 +66,46 @@ hi.lo.monthly <- xts(ts.data$french.data.Hi.Lo,date.seq)
 hi.lo.annual  <- aggregate(hi.lo.monthly+1,
                            as.integer(format(index(hi.lo.monthly),"%Y")), prod)-1
 
-# Converting monthly inflation data into annual inflation data #
-cpi.raw <- read.table("cpi_data.dat",
-                      sep = " ",
-                      header = TRUE,
-                      na.strings="NULL",
-                      colClasses=c(date="character"))
+# Downloading Shiller spreadsheet for inflation data #
 
-cpidate.seq    <- as.Date(paste(cpi.raw$date,"01",sep=""),"%Y%m%d")
-cpi.data       <- xts(cpi.raw$cpi,cpidate.seq)
+# The URL for the data
+shiller.data.url <- 'http://www.econ.yale.edu/~shiller/data/ie_data.xls'
+
+# Name of file to store data on local computer 
+shiller.filename <- 'shillerdata.xls'
+
+# Download the data 
+download.file(shiller.data.url, shiller.filename, mode='wb')
+
+# Parse the data 
+shiller.data <- read.xls(shiller.filename, sheet='Data', skip=6, header=TRUE)
+
+# Extract data needed
+shiller.data <- shiller.data[, c("Date", "CPI")]
+shiller.data <- head(shiller.data, nrow(shiller.data) - 2) ## Last row does not contain relevant data for inflation
+shiller.data$CPI <- as.numeric(as.character(shiller.data$CPI))
+# Will need to be further trimmed to align with timeline of French data 
+
+# Turn shiller.data into annualized data #
+
+# Selecting only the dates needed from Shiller data. French.data
+# has less data points than shiller.data so we must choose proper
+# dates to align the two data sets
+shiller.data$Date <- str_replace_all(shiller.data$Date, '[[.]]', '')
+shiller.data$Date <- as.Date(paste(shiller.data$Date, '01', sep=''), '%Y%m%d')
+start.index <- which(shiller.data$Date == as.Date('1926-07-01'))[1] ## Start date of French's data
+end.index <- which(shiller.data$Date == as.Date('2017-04-01'))[1] ## End date of French's data
+shiller.data <- shiller.data[start.index : end.index, ]
+
+# Converting monthly inflation data into annual inflation data #
+cpi.data       <- xts(shiller.data$CPI, shiller.data$Date)
 cpi.monthly    <- Return.calculate(cpi.data, method="compound")
 cpi.monthly    <- cpi.monthly[2:nrow(cpi.monthly),]
 cpi.annual     <- aggregate(cpi.monthly+1,
                             as.integer(format(index(cpi.monthly),"%Y")), prod)-1
 
 # Create new data frame as zoo object
+
 data.annual    <- merge.zoo( cpi.annual, hi.lo.annual )
 df.annual      <- data.frame(cpi=data.annual$cpi.annual,hilo=data.annual$hi.lo.annual)
 
@@ -90,27 +116,27 @@ df.annual$year <- rownames(df.annual)
 result.all <- data.frame( size=c(), value=c() )
 
 for ( window.size in 1:10 ) {
-  
+
   num.years   <- nrow(df.annual)
   num.windows <- ceiling(num.years/window.size)
-  
+
   samp <- df.annual
   samp$period <- gl(num.windows,window.size,length=num.years)
-  
+
   result <- aggregate(samp[,c("cpi","hilo")]+1, by=list(samp$period), FUN=geomean)
   result <- result[,c("cpi","hilo")]-1
   result$year <- df.annual[seq(from=1,to=num.years,by=window.size),]$year
-  
+
   new.row <- data.frame( size=c(window.size), value=c(cor(result$cpi,result$hilo)))
   result.all <- rbind( result.all, new.row )
-  
+
 }
 
 result.all
 
 result.all$size <- factor(result.all$size)
 
-background <- data.frame( lower = c(0.0,0.5,0.8) , 
+background <- data.frame( lower = c(0.0,0.5,0.8) ,
                           upper = c(0.5,0.8,1.0) ,
                           col = letters[1:3]     )
 
@@ -144,8 +170,7 @@ p <- p + theme(plot.title = element_text(hjust=0.5))
 
 p
 
-# Opening the png file 
-system2('open', args = png.filename, wait = FALSE)
-
-
 dev.off()
+
+# Opening the png file
+system2('open', args = png.filename, wait = FALSE)

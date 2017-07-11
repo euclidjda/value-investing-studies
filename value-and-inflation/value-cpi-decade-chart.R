@@ -64,14 +64,39 @@ hi.lo.monthly <- xts(ts.data$french.data.Hi.Lo,date.seq)
 hi.lo.annual  <- aggregate(hi.lo.monthly+1,
                            as.integer(format(index(hi.lo.monthly),"%Y")), prod)-1
 
-cpi.raw <- read.table("cpi_data.dat",
-                      sep = " ",
-                      header = TRUE,
-                      na.strings="NULL",
-                      colClasses=c(date="character"))
+# Downloading Shiller spreadsheet for inflation data #
 
-cpidate.seq    <- as.Date(paste(cpi.raw$date,"01",sep=""),"%Y%m%d")
-cpi.data       <- xts(cpi.raw$cpi,cpidate.seq)
+# The URL for the data
+shiller.data.url <- 'http://www.econ.yale.edu/~shiller/data/ie_data.xls'
+
+# Name of file to store data on local computer 
+shiller.filename <- 'shillerdata.xls'
+
+# Download the data 
+download.file(shiller.data.url, shiller.filename, mode='wb')
+
+# Parse the data 
+shiller.data <- read.xls(shiller.filename, sheet='Data', skip=6, header=TRUE)
+
+# Extract data needed
+shiller.data <- shiller.data[, c("Date", "CPI")]
+shiller.data <- head(shiller.data, nrow(shiller.data) - 2) ## Last row does not contain relevant data for inflation
+shiller.data$CPI <- as.numeric(as.character(shiller.data$CPI))
+# Will need to be further trimmed to align with timeline of French data 
+
+# Turn shiller.data into annualized data #
+
+# Selecting only the dates needed from Shiller data. French.data
+# has less data points than shiller.data so we must choose proper
+# dates to align the two data sets
+shiller.data$Date <- str_replace_all(shiller.data$Date, '[[.]]', '')
+shiller.data$Date <- as.Date(paste(shiller.data$Date, '01', sep=''), '%Y%m%d')
+start.index <- which(shiller.data$Date == as.Date('1926-07-01'))[1] ## Start date of French's data
+end.index <- which(shiller.data$Date == as.Date('2017-04-01'))[1] ## End date of French's data
+shiller.data <- shiller.data[start.index : end.index, ]
+
+# Converting monthly inflation data into annual inflation data #
+cpi.data       <- xts(shiller.data$CPI, shiller.data$Date)
 cpi.monthly    <- Return.calculate(cpi.data, method="compound")
 cpi.monthly    <- cpi.monthly[2:nrow(cpi.monthly),]
 cpi.annual     <- aggregate(cpi.monthly+1,
@@ -117,7 +142,7 @@ p <- p + theme(plot.title = element_text(hjust=0.5))
 
 p
 
+dev.off()
+
 # Opening the png file 
 system2('open', args = png.filename, wait = FALSE)
-
-dev.off()
