@@ -9,8 +9,8 @@ The studies in this repo are:
 - [Value and Interest Rates](https://github.com/euclidjda/value-investing-studies/tree/master/value-and-interest-rates):
 	- Characterizes the relationship of value stock performance with respect to long-term interest rates 
 - [Value is Hard](https://github.com/euclidjda/value-investing-studies/tree/master/value-is-hard)
-- [Value vs. Growth](https://github.com/euclidjda/value-investing-studies/tree/master/value-vs-growth)
 	- Compares performance of a hypothetical value fund to S&P500 returns
+- [Value vs. Growth](https://github.com/euclidjda/value-investing-studies/tree/master/value-vs-growth)
 
 ## Installing and Executing the Studies
 
