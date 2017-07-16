@@ -1,3 +1,5 @@
+#!/usr/bin/env Rscript
+
 # Load libraries
 library(ggplot2)
 library(stringr)
@@ -126,6 +128,12 @@ g <- g + geom_point(color='#DD592D',
 g <- g + geom_label(aes(label='Current: 2010-?', x=as.Date('2010-06-01'), y=-0.025),
                    size=4,color='#617994')
 
+# Creates label to describe significance of other labels 
+g <- g + geom_label(aes(label='Labels Indicate Time Period of Value Recovery', 
+                        x=as.Date('1983-06-01'), ## midpoint of dates on graph 
+                        y=-0.15),
+                    size=4,color='#617994')
+
 # Put a horizontal line at zero for empaphsis
 g <- g + geom_hline(aes(yintercept=0.0),color="black",linetype=2)
 
@@ -143,8 +151,6 @@ g <- g + scale_x_date("Year",breaks=breaks,
                       labels=years,
                       limits=as.Date(c('1945-01-01','2024-01-01')),
                       expand=c(0,1) )
-
-
 g <- g + scale_y_continuous("Value vs. Growth (Annualized 5-Year Rolling Value Performance)",labels=percent,limits=c(-0.20,0.25),expand=c(0,0))
 
 g <- g + theme_bw() + theme(legend.position="none",
@@ -152,8 +158,12 @@ g <- g + theme_bw() + theme(legend.position="none",
                             panel.background=element_blank() ,
                             panel.border=element_blank() )
 
-g <- g + ggtitle("Growth vs. Value Performance Since 1945")
-g <- g + theme(plot.title = element_text(hjust=0.5))
+# Creating title and subtitle
+g <- g + labs(title='Growth Has Outperformed Value Six Times Since 1945', 
+              subtitle='Each Time Value Has Had A Significant Recovery')
+# Centering title and subtitle
+g <- g + theme(plot.title = element_text(hjust=0.5), 
+               plot.subtitle = element_text(hjust=0.5))
 
 g
 
