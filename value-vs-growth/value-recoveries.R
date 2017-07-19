@@ -215,6 +215,7 @@ for (data.ser in data.series) {
                                   tail(recov.data[ recov.data[, "series"] == data.ser, ], 1))
 }
 
+
 # Recovery Number 1 
 reb1 <- recov.data.last.points[1, ]$values ## reb = rebound 
 reb1.percent <- paste(format(round(reb1 * 100 , 2), nsmall=2),

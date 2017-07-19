@@ -92,44 +92,37 @@ g <- g + geom_line(data = french.data,
                    colour=dark.blue)
 
 # Labeling points
-g <- g + geom_point(color='#DD592D',
-                    size=4,
-                    aes(x=as.Date('1960-01-01'), y=0))
-g <- g + geom_label(aes(label='1960-1966', x=as.Date('1960-01-01'), y=0.025),
-                   size=4,color='#617994')
+x.point.values <- c('1960-01-01', 
+                    '1969-06-01',
+                    '1980-06-01',
+                    '1991-06-01',
+                    '1999-06-01',
+                    '2010-06-01')
+
+y.point.values <- c(0.025,
+                   -0.025,
+                   0.025,
+                   -0.025,
+                   0.025,
+                   -0.025)
+
+time.period.labels <- c('1960-1966',
+                       '1969-1977',
+                       '1980-1985',
+                       '1991-1996',
+                       '1999-2005',
+                       'Current: 2010-?')
 
 g <- g + geom_point(color='#DD592D',
                     size=4,
-                    aes(x=as.Date('1969-06-01'), y=0))
-g <- g + geom_label(aes(label='1969-1977', x=as.Date('1969-06-01'), y=-0.025),
-                   size=4,color='#617994')
+                    aes(x=as.Date(x.point.values), y=0))
 
-g <- g + geom_point(color='#DD592D',
-                    size=4,
-                    aes(x=as.Date('1980-06-01'), y=0))
-g <- g + geom_label(aes(label='1980-1985', x=as.Date('1980-06-01'), y=0.025),
-                   size=4,color='#617994')
+g <- g + geom_label(aes(label=time.period.labels, x=as.Date(x.point.values), y=y.point.values),
+                    size=4,color='#617994')
 
-g <- g + geom_point(color='#DD592D',
-                    size=4,
-                    aes(x=as.Date('1991-06-01'), y=0))
-g <- g + geom_label(aes(label='1991-1996', x=as.Date('1991-06-01'), y=-0.025),
-                   size=4,color='#617994')
-
-g <- g + geom_point(color='#DD592D',
-                    size=4,
-                    aes(x=as.Date('1999-06-01'), y=0))
-g <- g + geom_label(aes(label='1999-2005', x=as.Date('1999-06-01'), y=0.025),
-                   size=4,color='#617994')
-
-g <- g + geom_point(color='#DD592D',
-                    size=4,
-                    aes(x=as.Date('2010-06-01'), y=0))
-g <- g + geom_label(aes(label='Current: 2010-?', x=as.Date('2010-06-01'), y=-0.025),
-                   size=4,color='#617994')
 
 # Creates label to describe significance of other labels 
-g <- g + geom_label(aes(label='Labels Indicate Time Period of Value Recovery', 
+g <- g + geom_label(aes(label='A Label Indicates Time Period of Value Recovery', 
                         x=as.Date('1983-06-01'), ## midpoint of dates on graph 
                         y=-0.15),
                     size=4,color='#617994')
