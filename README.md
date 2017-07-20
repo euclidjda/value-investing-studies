@@ -8,9 +8,9 @@ The studies in this repo are:
 	- Characterizes the relationship of value stock performance with respect to inflation as measured by the consumer price index
 - [Value and Interest Rates](https://github.com/euclidjda/value-investing-studies/tree/master/value-and-interest-rates):
 	- Characterizes the relationship of value stock performance with respect to long-term interest rates 
-- [Value is Hard](https://github.com/euclidjda/value-investing-studies/tree/master/value-is-hard)
+- [Value is Hard](https://github.com/euclidjda/value-investing-studies/tree/master/value-is-hard):
 	- Compares performance of a hypothetical value fund to S&P500 returns
-- [Value vs. Growth](https://github.com/euclidjda/value-investing-studies/tree/master/value-vs-growth)
+- [Value vs. Growth](https://github.com/euclidjda/value-investing-studies/tree/master/value-vs-growth):
 	- Analyzes the performance of value stocks vs. growth stocks over long time horizons
 
 ## Installing and Executing the Studies
