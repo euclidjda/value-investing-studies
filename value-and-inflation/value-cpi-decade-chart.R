@@ -55,7 +55,7 @@ for (i in 2:ncol(french.data)) french.data[,i] <- french.data[,i]/100
 # Now we calculate the the HML sequence from the factor sequences
 french.data$Hi.Lo <- french.data$HML
 
-# Converting monthly inflation data into annual inflation data #
+# Converting monthly value data into annual value data #
 ts.data <- data.frame(french.data$Hi.Lo)
 row.names(ts.data) <- date.seq
 

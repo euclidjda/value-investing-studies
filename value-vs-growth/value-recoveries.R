@@ -23,8 +23,8 @@ start.month  <- 1
 # Beware, however, that the source datafile may only be updated annually
 # and therefore the most recent monthly may not be available
 
-end.year     <- 2016
-end.month    <- 11
+end.year     <- 2017
+end.month    <- 5
 
 window.width <- 5*12 # The rolling window width. 5 Years in this case
 look.forward <- 8*12 # How far to look forward for the end of a value recovery
@@ -280,7 +280,7 @@ reb6.percent <- paste(format(round(reb6 * 100 , 2), nsmall=2),
                       sep='')
 g <- g + geom_label(aes(label = paste('Current / 2010-? ', reb6.percent, sep=':\n'), 
                         x = recov.data.last.points[6, ]$months + 9, 
-                        y = recov.data.last.points[6, ]$values + 0.1),
+                        y = recov.data.last.points[6, ]$values - 0.1),
                     size = 4,
                     color='#617994')
 
