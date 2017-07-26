@@ -1,7 +1,7 @@
 # Value Investing Studies
 #### [by Euclidean Technologies, LLC](http://www.euclidean.com)
 
-This repo is a collection of data anaysis studies that examine the performance and characteristics of value investing over long periods of time. Each directory is a study dedicated to a particular form of data analysis on value investing. The studies depend only on the code herein and publicly available stock market and economic data. We would like to thank [Kenneth R. French](http://mba.tuck.dartmouth.edu/pages/faculty/ken.french/) and [Robert Shiller](http://www.econ.yale.edu/~shiller/) for making this data available through their websites [here](http://mba.tuck.dartmouth.edu/pages/faculty/ken.french/data_library.html#Research) and [here](http://www.econ.yale.edu/~shiller/data.htm), respectively. 
+This repo is a collection of data anaysis studies that examine the performance and characteristics of value investing over long periods of time. Each directory is a study dedicated to a particular form of data analysis on value investing. The studies depend only on the code herein and publicly available stock market and economic data. We would like to thank [Kenneth R. French](http://mba.tuck.dartmouth.edu/pages/faculty/ken.french/) and [Robert Shiller](http://www.econ.yale.edu/~shiller/) for making this data available through their websites [here](http://mba.tuck.dartmouth.edu/pages/faculty/ken.french/data_library.html#Research) and [here](http://www.econ.yale.edu/~shiller/data.htm), respectively. The equity investment return data is copyrighted by Kenneth R. French. 
 
 The studies in this repo are:
 - [Value and Inflation](https://github.com/euclidjda/value-investing-studies/tree/master/value-and-inflation): 
@@ -64,7 +64,7 @@ After doing so, this chart should pop up:
 
 ## Contributors and Acknowledgement
 
-This repository was developed and is maintained by [Euclidean Technologies, LLC](http://www.euclidean.com/). Contributors include [David Tran](http://github.com/dtran24) and [John Alberg](http://github.com/euclidjda). We would like to thank [Kenneth R. French](http://mba.tuck.dartmouth.edu/pages/faculty/ken.french/) and [Robert Shiller](http://www.econ.yale.edu/~shiller/) for making the stock market and economic data used by this repo available through their websites [here](http://mba.tuck.dartmouth.edu/pages/faculty/ken.french/data_library.html#Research) and [here](http://www.econ.yale.edu/~shiller/data.htm), respectively. 
+This repository was developed and is maintained by [Euclidean Technologies, LLC](http://www.euclidean.com/). Contributors include [David Tran](http://github.com/dtran24) and [John Alberg](http://github.com/euclidjda). We would like to thank [Kenneth R. French](http://mba.tuck.dartmouth.edu/pages/faculty/ken.french/) and [Robert Shiller](http://www.econ.yale.edu/~shiller/) for making the stock market and economic data used by this repo available through their websites [here](http://mba.tuck.dartmouth.edu/pages/faculty/ken.french/data_library.html#Research) and [here](http://www.econ.yale.edu/~shiller/data.htm), respectively. The equity investment return data is copyrighted by Kenneth R. French.
 
 ## License 
 
