@@ -8,6 +8,7 @@ library(ggthemes)
 library(PerformanceAnalytics)
 library(RColorBrewer)
 library(plyr)
+library(gdata)
 
 # Define geometric mean
 geomean = function(x, na.rm=TRUE){
