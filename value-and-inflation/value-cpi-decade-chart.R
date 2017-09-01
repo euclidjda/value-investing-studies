@@ -28,13 +28,15 @@ full.url     <- paste(url.name, file.name, sep="/")
 end.year     <- 2017 
 end.month    <- 4
 
-# Download the data and unzip it
-temp.file <- tempfile()
-download.file(full.url, temp.file)
-file.list <- unzip(temp.file, list=TRUE)
+if (!file.exists(file.name)) {
+                                        # Download the data and unzip it
+    download.file(full.url, file.name)
+}
+
+file.list <- unzip(file.name, list=TRUE)
 
 # Parse the data
-french.data   <- read.csv(unzip(temp.file,files=as.character(file.list[1,1])),
+french.data   <- read.csv(unzip(file.name,files=as.character(file.list[1,1])),
                           sep = "",
                           header=TRUE )
 names(french.data)[[1]] <- "DATE"
@@ -73,8 +75,11 @@ shiller.data.url <- 'http://www.econ.yale.edu/~shiller/data/ie_data.xls'
 # Name of file to store data on local computer 
 shiller.filename <- 'shillerdata.xls'
 
-# Download the data 
-download.file(shiller.data.url, shiller.filename, mode='wb')
+if (!file.exists(shiller.filename)) {
+                                        # Download the data 
+    download.file(shiller.data.url, shiller.filename, mode='wb')
+
+}
 
 # Parse the data 
 shiller.data <- read.xls(shiller.filename, sheet='Data', skip=6, header=TRUE)
@@ -120,18 +125,37 @@ data.decade    <- merge.zoo( cpi.decade, hi.lo.decade )
 df.decade      <- data.frame(cpi=data.decade$cpi.decade,hilo=data.decade$hi.lo.decade)
 df.decade$year <- rownames(df.decade)
 
+lm_eqn = function(m) {
+
+  l <- list(a = format(coef(m)[1], digits = 2),
+      b = format(abs(coef(m)[2]), digits = 2),
+      r2 = format(summary(m)$r.squared, digits = 3));
+
+  if (coef(m)[2] >= 0)  {
+    eq <- substitute(italic(y) == a + b %.% italic(x)*","~~italic(r)^2~"="~r2,l)
+  } else {
+    eq <- substitute(italic(y) == a - b %.% italic(x)*","~~italic(r)^2~"="~r2,l)    
+  }
+
+  as.character(as.expression(eq));                 
+}
+
 # Creating the png canvas to draw graph on
 png.filename <- "value-cpi-decade-chart.png"
 png(png.filename, width=500, height=500)
 
 p <- ggplot(df.decade,aes(x=cpi,y=hilo))
+p <- p + geom_smooth(method="lm",se=FALSE,linetype = "dotted")
 p <- p + geom_point(color="#DD592D",size=3)
+p <- p + geom_text(aes(x = 0, y = 0.08, label = lm_eqn(lm(hilo ~ cpi, df.decade))), parse = TRUE)
+
 p <- p + geom_text(data=subset(df.decade, (year<195.5 | year==197) & year!=193),
                    aes(label=paste(year,"0s",sep=""),
                        vjust=-.8,hjust=0.8),size=4,color='#617994')
 p <- p + geom_text(data=subset(df.decade, (year>195.5 | year==193) & year!=197),
                    aes(label=paste(year,"0s",sep=""),vjust=-.8,hjust=0.1),
                    size=4,color='#617994')
+
 p <- p + scale_x_continuous("Annualized Change in CPI",
                             label=percent,
                             c(-0.04,-0.02,0,0.02,0.04,0.06,0.08))
