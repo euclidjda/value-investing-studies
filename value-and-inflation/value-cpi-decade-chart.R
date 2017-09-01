@@ -147,7 +147,7 @@ png(png.filename, width=500, height=500)
 p <- ggplot(df.decade,aes(x=cpi,y=hilo))
 p <- p + geom_smooth(method="lm",se=FALSE,linetype = "dotted")
 p <- p + geom_point(color="#DD592D",size=3)
-p <- p + geom_text(aes(x = 0, y = 0.08, label = lm_eqn(lm(hilo ~ cpi, df.decade))),
+p <- p + geom_text(aes(x = 0.05, y = -0.01, label = lm_eqn(lm(hilo ~ cpi, df.decade))),
                    parse = TRUE,size=4,color='#617994')
 
 p <- p + geom_text(data=subset(df.decade, (year<195.5 | year==197) & year!=193),
