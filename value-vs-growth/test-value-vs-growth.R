@@ -63,11 +63,11 @@ french.data$Hi.Lo <-
 #row.names(ts.data) <- date.seq
 
 ts.data <- xts(french.data$Hi.Lo, order.by=date.seq)
-# ts.data
-#stop("Script stopped here.")
+# date.seq
+# stop("Script stopped here.")
 
 # Now calculate the a time series of rolling 5-year annualized returns
-z <- apply.rolling(ts.data, width=window.width, FUN = "Return.annualized")
+z <- apply.rolling(ts.data, width=window.width, scale=12, FUN = "Return.annualized")
 french.data$Hi.Lo.5YrRolling <- z['calc'] 
 #tail(z["calcs"])
 # stop()
