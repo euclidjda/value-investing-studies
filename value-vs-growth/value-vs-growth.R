@@ -59,8 +59,11 @@ french.data$Hi.Lo <-
 # Now create a time series of the HML data that we can pass off to apply.rolling
 # and other PerformanceAnalytics functions
 
-ts.data <- data.frame(french.data$Hi.Lo)
-row.names(ts.data) <- date.seq
+# ts.data <- data.frame(french.data$Hi.Lo)
+# row.names(ts.data) <- date.seq
+
+ts.data <- xts(french.data$Hi.Lo,order.by=date.seq)
+head(ts.data)
 
 # Now calculate the a time series of rolling 5-year annualized returns
 z <- apply.rolling(ts.data, width=window.width, FUN = "Return.annualized")

@@ -7,7 +7,7 @@ library(scales)
 library(ggthemes)
 library(PerformanceAnalytics)
 library(RColorBrewer)
-
+library(xts)
 
 # The URL for the data
 url.name     <- "http://mba.tuck.dartmouth.edu/pages/faculty/ken.french/ftp"
@@ -36,8 +36,6 @@ french.data   <- read.csv(unzip(temp.file,
                           stringsAsFactors=FALSE)
 names(french.data)[[1]] <- "DATE"
 
-head(french.data)
-
 # Now we want to remove all the data below the end date
 ds.year     <- as.numeric(substr(french.data$DATE[[1]],1,4))
 ds.month    <- as.numeric(substr(french.data$DATE[[1]],5,6))
@@ -45,8 +43,6 @@ num.rows    <- 12*(end.year-ds.year)+(end.month-ds.month)+1
 french.data <- head(french.data,num.rows)
 date.seq    <- as.Date(paste(french.data$DATE,"01",sep=""),"%Y%m%d")
 french.data$DATE <- date.seq
-
-head(date.seq)
 
 # Transform the data so that the return cells are numeric decimal format
 for (i in 2:ncol(french.data)) french.data[,i] <- as.numeric(str_trim(french.data[,i]))
@@ -63,15 +59,18 @@ french.data$Hi.Lo <-
 # Now create a time series of the HML data that we can pass off to apply.rolling
 # and other PerformanceAnalytics functions
 
-ts.data <- data.frame(french.data$Hi.Lo)
-row.names(ts.data) <- date.seq
+#ts.data <- data.frame(french.data$Hi.Lo)
+#row.names(ts.data) <- date.seq
 
-head(ts.data)
-stop("Script stopped here.")
+ts.data <- xts(french.data$Hi.Lo, order.by=date.seq)
+# ts.data
+#stop("Script stopped here.")
 
 # Now calculate the a time series of rolling 5-year annualized returns
 z <- apply.rolling(ts.data, width=window.width, FUN = "Return.annualized")
-french.data$Hi.Lo.5YrRolling <- z[[1]]
+french.data$Hi.Lo.5YrRolling <- z['calc'] 
+#tail(z["calcs"])
+# stop()
 
 # Data sets and values used to plot the data
 indexes <- seq(from=window.width,to=length(date.seq),by=7*12)
