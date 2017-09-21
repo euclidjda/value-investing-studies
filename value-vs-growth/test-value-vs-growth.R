@@ -9,6 +9,7 @@ library(PerformanceAnalytics)
 library(RColorBrewer)
 library(xts)
 
+
 # The URL for the data
 url.name     <- "http://mba.tuck.dartmouth.edu/pages/faculty/ken.french/ftp"
 file.name    <- "25_Portfolios_5x5_CSV.zip"
@@ -59,18 +60,23 @@ french.data$Hi.Lo <-
 # Now create a time series of the HML data that we can pass off to apply.rolling
 # and other PerformanceAnalytics functions
 
-#ts.data <- data.frame(french.data$Hi.Lo)
-#row.names(ts.data) <- date.seq
+# ts.data <- data.frame(french.data$Hi.Lo)
+# row.names(ts.data) <- date.seq
 
-ts.data <- xts(french.data$Hi.Lo, order.by=date.seq)
-# date.seq
-# stop("Script stopped here.")
+# xts.data <- xts( french.data$Hi.Lo, order.by=date.seq )
+xts.data <- xts( french.data$Hi.Lo, order.by=seq.Date(from=as.Date("1926-07-01"),to=as.Date("2017-05-01"),by="months") )
 
 # Now calculate the a time series of rolling 5-year annualized returns
-z <- apply.rolling(ts.data, width=window.width, scale=12, FUN = "Return.annualized")
-french.data$Hi.Lo.5YrRolling <- z['calc'] 
-#tail(z["calcs"])
-# stop()
+# y <- apply.rolling(ts.data, width=window.width, FUN = "Return.annualized")
+z <- apply.rolling(xts.data, width=window.width, FUN = "Return.annualized")
+
+# french.data$Hi.Lo.5YrRolling <- z[[1]]
+
+#tail(y$calcs)
+french.data$Hi.Lo.5YrRolling <- drop(coredata(z))
+
+#tail(french.data)
+#stop()
 
 # Data sets and values used to plot the data
 indexes <- seq(from=window.width,to=length(date.seq),by=7*12)
