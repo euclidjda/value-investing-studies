@@ -19,7 +19,7 @@ full.url     <- paste(url.name, file.name, sep="/")
 # and therefore the most recent monthly may not be available
 
 end.year     <- 2017
-end.month    <- 5
+end.month    <- 10
 window.width <- 5*12 # The rolling window width. 5 Years in this case
 
 # Download the data and unzip it
@@ -31,7 +31,7 @@ file.list <- unzip(temp.file, list=TRUE)
 # Parse the data
 french.data   <- read.csv(unzip(temp.file,
                                 files=as.character(file.list[1,1])),
-                          skip=19,
+                          skip=15,
                           header=TRUE,
                           stringsAsFactors=FALSE)
 names(french.data)[[1]] <- "DATE"
@@ -77,7 +77,7 @@ dark.blue <- rev( brewer.pal(7,"Blues") )[2]
 colors    <- c('#DD592D','#34BBA7')
 
 # This is the data used to draw the backgrounds
-background <- data.frame( lower = c(-.20,0.0) ,
+background <- data.frame( lower = c(-.10,0.0) ,
                           upper = c(0.0, 0.25),
                           col = letters[1:2]  )
 
@@ -122,10 +122,10 @@ g <- g + geom_label(aes(label=time.period.labels, x=as.Date(x.point.values), y=y
 
 
 # Creates label to describe significance of other labels 
-g <- g + geom_label(aes(label='A Label Indicates Time Period of Value Recovery', 
-                        x=as.Date('1983-06-01'), ## midpoint of dates on graph 
-                        y=-0.15),
-                    size=4,color='#617994')
+#g <- g + geom_label(aes(label='A Label Indicates Time Period of Value Recovery', 
+#                        x=as.Date('1983-06-01'), ## midpoint of dates on graph 
+#                        y=-0.15),
+#                   size=4,color='#617994')
 
 # Put a horizontal line at zero for empaphsis
 g <- g + geom_hline(aes(yintercept=0.0),color="black",linetype=2)
@@ -144,7 +144,7 @@ g <- g + scale_x_date("Year",breaks=breaks,
                       labels=years,
                       limits=as.Date(c('1945-01-01','2024-01-01')),
                       expand=c(0,1) )
-g <- g + scale_y_continuous("Value vs. Growth (Annualized 5-Year Rolling Value Performance)",labels=percent,limits=c(-0.20,0.25),expand=c(0,0))
+g <- g + scale_y_continuous("Value vs. Growth (Annualized 5-Year Rolling Value Performance)",labels=percent,limits=c(-0.10,0.25),expand=c(0,0))
 
 g <- g + theme_bw() + theme(legend.position="none",
                             axis.ticks = element_blank(),
@@ -157,6 +157,8 @@ g <- g + labs(title='Growth Has Outperformed Value Six Times Since 1945',
 # Centering title and subtitle
 g <- g + theme(plot.title = element_text(hjust=0.5), 
                plot.subtitle = element_text(hjust=0.5))
+
+g <- g + theme(aspect.ratio=0.50)
 
 g
 
