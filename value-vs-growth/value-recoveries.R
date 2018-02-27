@@ -38,7 +38,7 @@ file.list <- unzip(temp.file, list=TRUE)
 # Parse the data
 french.data   <- read.csv(unzip(temp.file,
                                 files=as.character(file.list[1,1])),
-                          skip=19,
+                          skip=15,
                           header=TRUE,
                           stringsAsFactors=FALSE)
 names(french.data)[[1]] <- "DATE"

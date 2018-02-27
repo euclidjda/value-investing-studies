@@ -19,7 +19,7 @@ full.url     <- paste(url.name, file.name, sep="/")
 # and therefore the most recent monthly may not be available
 
 end.year     <- 2017
-end.month    <- 10
+end.month    <- 12
 window.width <- 5*12 # The rolling window width. 5 Years in this case
 
 # Download the data and unzip it
