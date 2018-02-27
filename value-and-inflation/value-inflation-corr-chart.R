@@ -26,7 +26,7 @@ full.url     <- paste(url.name, file.name, sep="/")
 # Beware, however, that the source datafile may only be updated annually
 # and therefore the most recent monthly may not be available
 end.year     <- 2017 
-end.month    <- 4
+end.month    <- 12
 
 # Download the data and unzip it
 
