@@ -34,8 +34,8 @@ hi10.data <- french.data[, 20] ## Hi10 data column
 # Beware, however, that the source datafile may only be updated annually
 # and therefore the most recent monthly may not be available
 
-end.year     <- 2015 ## End date used for results 
-end.month    <- 9
+end.year     <- 2018 ## End date used for results 
+end.month    <- 8
 
 start.year <- 1962 ## Start date used for results
 start.month <- 1
@@ -62,6 +62,8 @@ raw <- read.table("1962data.txt",
                   header = TRUE,
                   na.strings="NULL",
                   colClasses=c(DATE="character"))
+
+raw <- raw[1:length(hi10.data),]
 
 # Create the time series
 Hi10SP500.ts <- xts(hi10.data - raw$SP500, date.seq)

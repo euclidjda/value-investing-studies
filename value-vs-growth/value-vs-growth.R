@@ -18,8 +18,8 @@ full.url     <- paste(url.name, file.name, sep="/")
 # Beware, however, that the source datafile may only be updated annually
 # and therefore the most recent monthly may not be available
 
-end.year     <- 2017
-end.month    <- 12
+end.year     <- 2018
+end.month    <- 6
 window.width <- 5*12 # The rolling window width. 5 Years in this case
 
 # Download the data and unzip it
@@ -144,7 +144,7 @@ g <- g + scale_x_date("Year",breaks=breaks,
                       labels=years,
                       limits=as.Date(c('1945-01-01','2024-01-01')),
                       expand=c(0,1) )
-g <- g + scale_y_continuous("Value vs. Growth (Annualized 5-Year Rolling Value Performance)",labels=percent,limits=c(-0.10,0.25),expand=c(0,0))
+g <- g + scale_y_continuous("Value vs. Growth\n(Annualized 5-Yr Rolling Return)",labels=percent,limits=c(-0.10,0.25),expand=c(0,0))
 
 g <- g + theme_bw() + theme(legend.position="none",
                             axis.ticks = element_blank(),

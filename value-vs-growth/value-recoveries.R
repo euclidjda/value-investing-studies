@@ -23,8 +23,8 @@ start.month  <- 1
 # Beware, however, that the source datafile may only be updated annually
 # and therefore the most recent monthly may not be available
 
-end.year     <- 2017
-end.month    <- 5
+end.year     <- 2018
+end.month    <- 8
 
 window.width <- 5*12 # The rolling window width. 5 Years in this case
 look.forward <- 8*12 # How far to look forward for the end of a value recovery
