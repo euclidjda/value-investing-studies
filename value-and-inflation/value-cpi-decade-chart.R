@@ -25,7 +25,7 @@ full.url     <- paste(url.name, file.name, sep="/")
 # You can change the ending date of the analysis by changing these variables
 # Beware, however, that the source datafile may only be updated annually
 # and therefore the most recent monthly may not be available
-end.year     <- 2017 
+end.year     <- 2019 
 end.month    <- 12
 
 if (!file.exists(file.name)) {
@@ -97,8 +97,8 @@ shiller.data$CPI <- as.numeric(as.character(shiller.data$CPI))
 # dates to align the two data sets
 shiller.data$Date <- str_replace_all(shiller.data$Date, '[[.]]', '')
 shiller.data$Date <- as.Date(paste(shiller.data$Date, '01', sep=''), '%Y%m%d')
-start.index <- which(shiller.data$Date == as.Date('1926-07-01'))[1] ## Start date of French's data
-end.index <- which(shiller.data$Date == as.Date('2017-04-01'))[1] ## End date of French's data
+start.index <- which(shiller.data$Date == as.Date('1926-07-01'))[1] ## This should use start.date
+end.index <- which(shiller.data$Date == as.Date('2019-12-01'))[1] ## This should use end.date
 shiller.data <- shiller.data[start.index : end.index, ]
 
 # Converting monthly inflation data into annual inflation data #
