@@ -98,8 +98,8 @@ shiller.data$CPI <- as.numeric(as.character(shiller.data$CPI))
 # dates to align the two data sets
 shiller.data$Date <- str_replace_all(shiller.data$Date, '[[.]]', '')
 shiller.data$Date <- as.Date(paste(shiller.data$Date, '01', sep=''), '%Y%m%d')
-start.index <- which(shiller.data$Date == as.Date('1926-07-01'))[1] ## This should use start.date
-end.index <- which(shiller.data$Date == as.Date('2019-12-01'))[1] ## This should use end.date
+start.index <- which(shiller.data$Date == as.Date('1926-07-01'))[1]
+end.index <- which(shiller.data$Date == as.Date(paste(end.year,'12-01',sep='-')))[1]
 shiller.data <- shiller.data[start.index : end.index, ]
 
 # Converting monthly inflation data into annual inflation data #
