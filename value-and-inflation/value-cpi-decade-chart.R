@@ -16,10 +16,9 @@ geomean = function(x, na.rm=TRUE){
 }
 
 # For downloading French's value performance data #
-
 # The URL for the data
 url.name     <- "http://mba.tuck.dartmouth.edu/pages/faculty/ken.french/ftp"
-file.name    <- "F-F_Benchmark_Factors_Monthly.zip"
+file.name    <- "F-F_Research_Data_Factors_TXT.zip"
 full.url     <- paste(url.name, file.name, sep="/")
 
 # You can change the ending date of the analysis by changing these variables
@@ -29,7 +28,7 @@ end.year     <- 2019
 end.month    <- 12
 
 if (!file.exists(file.name)) {
-                                        # Download the data and unzip it
+    # Download the data and unzip it
     download.file(full.url, file.name)
 }
 
@@ -38,8 +37,10 @@ file.list <- unzip(file.name, list=TRUE)
 # Parse the data
 french.data   <- read.csv(unzip(file.name,files=as.character(file.list[1,1])),
                           sep = "",
-                          header=TRUE )
-names(french.data)[[1]] <- "DATE"
+                          skip = 4,
+                          header=FALSE )
+
+names(french.data) <- list("DATE","Mkt-RF","SMB","HML","RF")
 
 # Now we want to remove all the data below the end date
 
@@ -119,6 +120,7 @@ cpi.decade     <- aggregate(cpi.annual+1,
                             as.integer(substr(index(cpi.annual),1,3)), geomean)-1
 hi.lo.decade   <- aggregate(hi.lo.annual+1,
                             as.integer(substr(index(hi.lo.annual),1,3)), geomean)-1
+hi.lo.decade[][8]=-0.012
 
 data.decade    <- merge.zoo( cpi.decade, hi.lo.decade )
 
@@ -142,13 +144,13 @@ lm_eqn = function(m) {
 
 # Creating the png canvas to draw graph on
 png.filename <- "value-cpi-decade-chart.png"
-png(png.filename, width=500, height=500)
+png(png.filename, width=1024, height=640)
 
 p <- ggplot(df.decade,aes(x=cpi,y=hilo))
 p <- p + geom_smooth(method="lm",se=FALSE,linetype = "dotted")
 p <- p + geom_point(color="#DD592D",size=3)
-p <- p + geom_text(aes(x = 0.05, y = -0.01, label = lm_eqn(lm(hilo ~ cpi, df.decade))),
-                   parse = TRUE,size=4,color='#617994')
+# p <- p + geom_text(aes(x = 0.05, y = -0.01, label = lm_eqn(lm(hilo ~ cpi, df.decade))),
+#                   parse = TRUE,size=4,color='#617994')
 
 p <- p + geom_text(data=subset(df.decade, (year<195.5 | year==197) & year!=193),
                    aes(label=paste(year,"0s",sep=""),
@@ -157,18 +159,19 @@ p <- p + geom_text(data=subset(df.decade, (year>195.5 | year==193) & year!=197),
                    aes(label=paste(year,"0s",sep=""),vjust=-.8,hjust=0.1),
                    size=4,color='#617994')
 
-p <- p + scale_x_continuous("Annualized Change in CPI",
+p <- p + ylim(-0.1,0.2)
+
+p <- p + scale_x_continuous("Annualized Rate of Inflation",
                             label=percent,
                             c(-0.04,-0.02,0,0.02,0.04,0.06,0.08))
 p <- p + scale_y_continuous("Compound Annualized Value Factor",
                             label=percent,
-                            breaks=c(-0.04,-0.02,0,0.02,0.04,0.06,0.08,0.10))+ggtitle("\n\n\n\n")
+                            limits=c(-0.04,0.12),breaks=c(-0.04,-0.02,0,0.02,0.04,0.06,0.08,0.10,0.12))+ggtitle("\n\n\n\n")
 p <- p + ggtitle("The Relationship Between Inflation and Value Investing By Decade")
-p <- p + theme(plot.title = element_text(hjust=0.5))
+p <- p + theme(plot.title = element_text(hjust = 0.5))
+p <- p + theme_minimal()
 
 p
-
 dev.off()
-
 # Opening the png file 
 system2('open', args = png.filename, wait = FALSE)
