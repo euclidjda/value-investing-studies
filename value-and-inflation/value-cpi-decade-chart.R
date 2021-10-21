@@ -15,15 +15,12 @@ geomean = function(x, na.rm=TRUE){
   exp(sum(log(x[x > 0]), na.rm=na.rm) / length(x))
 }
 
-# For downloading French's value performance data #
-# The URL for the data
+# Download Ken French's value performance data
 url.name     <- "http://mba.tuck.dartmouth.edu/pages/faculty/ken.french/ftp"
 file.name    <- "F-F_Research_Data_Factors_TXT.zip"
 full.url     <- paste(url.name, file.name, sep="/")
 
-# You can change the ending date of the analysis by changing these variables
-# Beware, however, that the source datafile may only be updated annually
-# and therefore the most recent monthly may not be available
+# You can change the ending date of the analysis by changing these parameters
 end.year     <- 2019 
 end.month    <- 12
 
@@ -40,11 +37,10 @@ french.data   <- read.csv(unzip(file.name,files=as.character(file.list[1,1])),
                           skip = 4,
                           header=FALSE )
 
+# Set the column headers
 names(french.data) <- list("DATE","Mkt-RF","SMB","HML","RF")
 
 # Now we want to remove all the data below the end date
-
-# Transforming French's date data
 ds.year     <- as.numeric(substr(french.data$DATE[[1]],1,4))
 ds.month    <- as.numeric(substr(french.data$DATE[[1]],5,6))
 num.rows    <- 12 * (end.year-ds.year)+(end.month-ds.month)+1
@@ -56,19 +52,16 @@ french.data$DATE <- date.seq
 for (i in 2:ncol(french.data)) french.data[,i] <- as.numeric(str_trim(french.data[,i]))
 for (i in 2:ncol(french.data)) french.data[,i] <- french.data[,i]/100
 
-# Now we calculate the the HML sequence from the factor sequences
 french.data$Hi.Lo <- french.data$HML
 
-# Converting monthly value data into annual value data #
+# Converting monthly value data into annual value data
 ts.data <- data.frame(french.data$Hi.Lo)
 row.names(ts.data) <- date.seq
-
 hi.lo.monthly <- xts(ts.data$french.data.Hi.Lo,date.seq)
-
 hi.lo.annual  <- aggregate(hi.lo.monthly+1,
                            as.integer(format(index(hi.lo.monthly),"%Y")), prod)-1
 
-# Downloading Shiller spreadsheet for inflation data #
+# Downloading Shiller spreadsheet for inflation data
 
 # The URL for the data
 shiller.data.url <- 'http://www.econ.yale.edu/~shiller/data/ie_data.xls'
@@ -77,7 +70,7 @@ shiller.data.url <- 'http://www.econ.yale.edu/~shiller/data/ie_data.xls'
 shiller.filename <- 'shillerdata.xls'
 
 if (!file.exists(shiller.filename)) {
-                                        # Download the data 
+    # Download the data 
     download.file(shiller.data.url, shiller.filename, mode='wb')
 
 }
@@ -89,6 +82,7 @@ shiller.data <- read.xls(shiller.filename, sheet='Data', skip=6, header=TRUE)
 shiller.data <- shiller.data[, c("Date", "CPI")]
 shiller.data <- head(shiller.data, nrow(shiller.data) - 2) ## Last row does not contain relevant data for inflation
 shiller.data$CPI <- as.numeric(as.character(shiller.data$CPI))
+
 # Will need to be further trimmed to align with timeline of French data 
 
 # Turn shiller.data into annualized data #
@@ -120,7 +114,7 @@ cpi.decade     <- aggregate(cpi.annual+1,
                             as.integer(substr(index(cpi.annual),1,3)), geomean)-1
 hi.lo.decade   <- aggregate(hi.lo.annual+1,
                             as.integer(substr(index(hi.lo.annual),1,3)), geomean)-1
-hi.lo.decade[][8]=-0.012
+#hi.lo.decade[][8]=-0.012
 
 data.decade    <- merge.zoo( cpi.decade, hi.lo.decade )
 
