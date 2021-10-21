@@ -114,8 +114,6 @@ cpi.decade     <- aggregate(cpi.annual+1,
                             as.integer(substr(index(cpi.annual),1,3)), geomean)-1
 hi.lo.decade   <- aggregate(hi.lo.annual+1,
                             as.integer(substr(index(hi.lo.annual),1,3)), geomean)-1
-#hi.lo.decade[][8]=-0.012
-
 data.decade    <- merge.zoo( cpi.decade, hi.lo.decade )
 
 df.decade      <- data.frame(cpi=data.decade$cpi.decade,hilo=data.decade$hi.lo.decade)
