@@ -136,11 +136,14 @@ lm_eqn = function(m) {
 
 # Creating the png canvas to draw graph on
 png.filename <- "value-cpi-decade-chart.png"
-png(png.filename, width=1024, height=640)
+# png(png.filename, width=1024, height=640)
+png(png.filename)
 
 p <- ggplot(df.decade,aes(x=cpi,y=hilo))
 p <- p + geom_smooth(method="lm",se=FALSE,linetype = "dotted")
 p <- p + geom_point(color="#DD592D",size=3)
+
+# To see equation for best fit, uncomment the following two lines
 # p <- p + geom_text(aes(x = 0.05, y = -0.01, label = lm_eqn(lm(hilo ~ cpi, df.decade))),
 #                   parse = TRUE,size=4,color='#617994')
 
