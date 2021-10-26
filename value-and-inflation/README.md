@@ -1,33 +1,27 @@
-# Value Investing Studies
+# The Relationship Between Value Investing and Inflation
 #### [by Euclidean Technologies, LLC](http://www.euclidean.com)
 
-This repo is a collection of data analysis studies that examine the performance and characteristics of value investing over long periods of time. Each directory is a study dedicated to a particular form of data analysis on value investing. The studies depend only on the code herein and publicly available stock market and economic data. We would like to thank [Kenneth R. French](http://mba.tuck.dartmouth.edu/pages/faculty/ken.french/) and [Robert Shiller](http://www.econ.yale.edu/~shiller/) for making this data available through their websites [here](http://mba.tuck.dartmouth.edu/pages/faculty/ken.french/data_library.html#Research) and [here](http://www.econ.yale.edu/~shiller/data.htm), respectively. The equity investment return data is copyrighted by Kenneth R. French. 
+![alt text](/value-and-inflation/value-cpi-decade-chart.png)
 
-The studies in this repo are:
-- [Value and Inflation](https://github.com/euclidjda/value-investing-studies/tree/master/value-and-inflation): 
-	- Characterizes the relationship of value stock performance with respect to inflation as measured by the consumer price index
-- [Value and Interest Rates](https://github.com/euclidjda/value-investing-studies/tree/master/value-and-interest-rates):
-	- Characterizes the relationship of value stock performance with respect to long-term interest rates 
-- [Value is Hard](https://github.com/euclidjda/value-investing-studies/tree/master/value-is-hard):
-	- Compares performance of a hypothetical value fund to S&P500 returns
-- [Value vs. Growth](https://github.com/euclidjda/value-investing-studies/tree/master/value-vs-growth):
-	- Analyzes the performance of value stocks vs. growth stocks over long time horizons
+## Installing and Executing the Code
 
-## Installing and Executing the Studies
+###  Requirements
+
+You will need the programs git and Rscript installed on your computer.
 
 ### Cloning the Git Repository
 
-To clone our repository, make sure you’re in a directory on your computer that you want to hold our files. Use the command 
+To clone the repository, make sure you’re in a directory on your computer that you want to hold our files. Use the command 
 
 ```bash
 $ git clone https://github.com/euclidjda/value-investing-studies.git
 ```
 
-to copy our repository “value-investing-studies” into your current directory. 
+to copy the repository “value-investing-studies” into your current directory. 
 
 ### Installing Necessary R Dependecies 
 
-Some R dependecies are required to run our scripts. Use the command 
+Some R dependecies are required to run our scripts. Use the command: 
 
 ```bash 
 $ cd value-investing-studies
@@ -39,28 +33,21 @@ to navigate into your newly cloned directory. To install the necessary dependenc
 $ Rscript install_dependecies.R
 ``` 
 
-After the script completes, you will have all the R dependecies required to run our scripts. 
+After the script completes, you will have all the R dependecies required to run any scripts within the value-investing-studies repo. 
 
 ### Executing the Code
 
-Choose a chart from our README to reproduce.
-
-Suppose we want to run the script “value-cpi-decade-chart.R”. To run this script, we find the directory the script is located in (in this case “value-and-inflation”) and use the command: 
+Navigate to the directory where the script resides: 
 
 ```bash
 $ cd value-and-inflation
 ```
 
-to navigate into the directory. Lastly, to run the script, use the command: 
+and execute the script with the command: 
 
 ```bash 
 $ Rscript value-cpi-decade-chart.R
 ```
-
-After doing so, this chart should pop up:  
-
-![alt text](/value-and-inflation/value-cpi-decade-chart.png)
-
 
 ## Contributors and Acknowledgement
 
