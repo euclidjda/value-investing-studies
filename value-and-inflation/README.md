@@ -2,7 +2,7 @@
 
 ![alt text](/value-and-inflation/value-cpi-decade-chart.png)
 
-For details on this chart and the data used to generate it, please [visit this post](https://www.euclidean.com/value-investing-as-a-hedge-against-inflation)
+For details on this chart and the data used to generate it, please [visit this post](https://www.euclidean.com/value-investing-as-a-hedge-against-inflation).
 
 ## Installing and Executing the Code
 
