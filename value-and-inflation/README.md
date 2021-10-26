@@ -8,11 +8,11 @@ For details on this chart and the data used to generate it, please [visit this p
 
 ###  Requirements
 
-You will need the programs git and Rscript installed on your computer.
+You will need the programs git and Rscript installed on your computer. The examples below are for Mac OS X or any Linux type OS.
 
 ### Cloning the Git Repository
 
-To clone the repository, make sure you’re in a directory on your computer that you want to hold our files. Use the command 
+To clone the repository, make sure you’re in a directory on your computer that you want to hold the files. Use the command 
 
 ```bash
 $ git clone https://github.com/euclidjda/value-investing-studies.git
@@ -38,13 +38,13 @@ After the script completes, you will have all the R dependecies required to run 
 
 ### Executing the Code
 
-Navigate to the directory where the script resides: 
+Navigate to the directory where the script resides by typing 
 
 ```bash
 $ cd value-and-inflation
 ```
 
-and execute the script with the command: 
+and execute the script with the command 
 
 ```bash 
 $ Rscript value-cpi-decade-chart.R
