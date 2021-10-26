@@ -136,8 +136,9 @@ lm_eqn = function(m) {
 
 # Creating the png canvas to draw graph on
 png.filename <- "value-cpi-decade-chart.png"
-# png(png.filename, width=1024, height=640)
-png(png.filename)
+
+png(png.filename, width=1024, height=640)
+# png(png.filename, width=768, height=480)
 
 p <- ggplot(df.decade,aes(x=cpi,y=hilo))
 p <- p + geom_smooth(method="lm",se=FALSE,linetype = "dotted")
